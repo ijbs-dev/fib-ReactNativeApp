@@ -1,79 +1,104 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# FibonacciReactApp
 
-# Getting Started
+Este projeto é um aplicativo em React Native que verifica se um número informado pertence à sequência de Fibonacci.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Requisitos
 
-## Step 1: Start the Metro Server
+Antes de iniciar, certifique-se de que você tenha as seguintes ferramentas instaladas em sua máquina:
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- [Node.js](https://nodejs.org/) (LTS)
+- [Yarn](https://yarnpkg.com/) (opcional, mas recomendado)
+- [Android Studio](https://developer.android.com/studio)
+- Java 17 (necessário para o Android Gradle Plugin)
+- [React Native CLI](https://reactnative.dev/docs/environment-setup)
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Instalação do Ambiente
 
-```bash
-# using npm
-npm start
+### 1. Instalar Node.js e Yarn
 
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Instale o Node.js, se ainda não estiver instalado, e o Yarn:
 
 ```bash
-# using npm
-npm run android
+# Verificar instalação do Node.js
+node -v
 
-# OR using Yarn
-yarn android
+# Verificar instalação do Yarn (opcional)
+yarn -v
 ```
 
-### For iOS
+### 2. Configurar o Android Studio
+
+1. Abra o **Android Studio** e configure o SDK:
+   - No **SDK Manager**, certifique-se de que o **Android SDK Platform** mais recente e o **Android SDK Build-Tools** estão instalados.
+   - Crie um emulador no **AVD Manager** (dispositivo virtual Android).
+
+2. Adicione as seguintes variáveis de ambiente ao seu arquivo `.bashrc` ou `.zshrc` (dependendo do shell que você utiliza):
 
 ```bash
-# using npm
-npm run ios
+# Configuração do Android SDK
+export ANDROID_HOME=/home/seu_usuario/Android/Sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/emulator:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/tools/bin:$PATH
 
-# OR using Yarn
-yarn ios
+# Configuração do Java
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+3. Após adicionar essas variáveis, recarregue o shell:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+```bash
+source ~/.bashrc  # ou ~/.zshrc
+```
 
-## Step 3: Modifying your App
+### 3. Instalar Dependências
 
-Now that you have successfully run the app, let's modify it.
+1. Clone o repositório:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+```bash
+git clone https://github.com/seu_usuario/FibonacciReactApp.git
+cd FibonacciReactApp
+```
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+2. Instale as dependências do projeto:
 
-## Congratulations! :tada:
+```bash
+yarn install
+# ou
+npm install
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+## Executando o Projeto
 
-### Now what?
+### 1. Iniciar o Metro Bundler
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+Em um terminal, dentro do diretório do projeto, inicie o servidor Metro:
 
-# Troubleshooting
+```bash
+npx react-native start
+```
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### 2. Rodar o Projeto no Android
 
-# Learn More
+Abra um novo terminal no diretório do projeto e execute o seguinte comando:
 
-To learn more about React Native, take a look at the following resources:
+```bash
+npx react-native run-android
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Isso irá compilar o projeto e instalar o aplicativo no emulador ou dispositivo conectado.
+
+## Problemas Comuns
+
+### 1. Erro `Unable to load script from assets 'index.android.bundle'`
+Se você vir este erro ao rodar o aplicativo, certifique-se de que o Metro Bundler está rodando no terminal. Execute o comando:
+
+```bash
+npx react-native start
+```
+
+### 2. Erro de Permissão `adb: Permission denied`
+Se o `adb` não estiver funcionando corretamente, verifique se as variáveis de ambiente estão configuradas corretamente para usar o `adb` do SDK Android em **`$ANDROID_HOME/platform-tools`**.
+

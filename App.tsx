@@ -1,118 +1,85 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import { SafeAreaView, TextInput, TouchableOpacity, Text, View, ScrollView, ActivityIndicator } from 'react-native';
+import styles from './styles';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const App = () => {
+  const [inputNumber, setInputNumber] = useState('');
+  const [message, setMessage] = useState('');
+  const [fibonacciSequence, setFibonacciSequence] = useState<number[]>([]);
+  const [loading, setLoading] = useState(false);
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  const generateFibonacciSequence = (num: number) => {
+    let sequence = [0, 1];
+    let a = 0;
+    let b = 1;
+    let c = a + b;
+    while (c <= num) {
+      sequence.push(c);
+      a = b;
+      b = c;
+      c = a + b;
+    }
+    return sequence;
+  };
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  const isFibonacci = (num: number) => {
+    const sequence = generateFibonacciSequence(num);
+    setFibonacciSequence(sequence);
+    return sequence.includes(num);
+  };
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const handleCheckFibonacci = () => {
+    const num = parseInt(inputNumber, 10);
+    setLoading(true);
+    setTimeout(() => {
+      if (isNaN(num)) {
+        setMessage('Por favor, insira um número válido');
+        setFibonacciSequence([]);
+      } else {
+        if (isFibonacci(num)) {
+          setMessage(`O número ${num} pertence à sequência de Fibonacci.`);
+        } else {
+          setMessage(`O número ${num} NÃO pertence à sequência de Fibonacci.`);
+        }
+      }
+      setLoading(false);
+    }, 1000);
+  };
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handleClear = () => {
+    setInputNumber('');
+    setMessage('');
+    setFibonacciSequence([]);
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Sequência Fibonacci</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite um número"
+        keyboardType="numeric"
+        value={inputNumber}
+        onChangeText={setInputNumber}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+      <TouchableOpacity style={styles.button} onPress={handleCheckFibonacci} disabled={loading}>
+        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>VERIFICAR</Text>}
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, styles.clearButton]} onPress={handleClear}>
+        <Text style={styles.buttonText}>LIMPAR</Text>
+      </TouchableOpacity>
+      {message ? <Text style={styles.message}>{message}</Text> : null}
+      {fibonacciSequence.length > 0 && (
+        <ScrollView style={styles.sequenceContainer}>
+          <Text style={styles.sequenceTitle}>Sequência de Fibonacci até {inputNumber}:</Text>
+          <View style={styles.sequenceBox}>
+            <Text style={styles.sequenceText}>{fibonacciSequence.join(', ')}</Text>
+          </View>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;

@@ -2,6 +2,37 @@
 
 Este projeto é um aplicativo em React Native que verifica se um número informado pertence à sequência de Fibonacci e exibe a sequência até o número informado.
 
+---
+
+## Índice
+
+1. [Visualização Detalhada](#visualização-detalhada)
+   - [Diretório do Projeto](#diretório-do-projeto)
+   - [Tela de Home](#tela-de-home)
+2. [Funcionalidades em Ação](#funcionalidades-em-ação)
+   - [Inserindo número que `não` pertence à sequência Fibonacci](#inserindo-número-que-não-pertence-à-sequência-fibonacci)
+   - [Inserindo número que `pertence` à sequência Fibonacci](#inserindo-número-que-pertence-à-sequência-fibonacci)
+   - [Resetando valores](#resetando-valores)
+3. [Requisitos](#requisitos)
+4. [Instalação do Ambiente](#instalação-do-ambiente)
+   - [1. Instalar Node.js e Yarn](#1-instalar-nodejs-e-yarn)
+   - [2. Configurar o Android Studio](#2-configurar-o-android-studio)
+     - [2.1. Abrir o Android Studio e configurar o SDK](#21-abrir-o-android-studio-e-configurar-o-sdk)
+     - [2.2. Adicionar variáveis de ambiente](#22-adicionar-variáveis-de-ambiente)
+     - [2.3. Recarregar o shell](#23-recarregar-o-shell)
+   - [3. Instalar Dependências](#3-instalar-dependências)
+     - [3.1. Clonar o repositório](#31-clonar-o-repositório)
+     - [3.2. Instalar as dependências do projeto](#32-instalar-as-dependências-do-projeto)
+   - [4. Executando o Projeto](#4-executando-o-projeto)
+     - [4.1. Iniciar o Metro Bundler](#41-iniciar-o-metro-bundler)
+     - [4.2. Rodar o Projeto no Android](#42-rodar-o-projeto-no-android)
+5. [Problemas Comuns](#problemas-comuns)
+   - [5.1. Erro `Unable to load script from assets 'index.android.bundle'`](#51-erro-unable-to-load-script-from-assets-indexandroidbundle)
+   - [5.2. Erro de Permissão `adb: Permission denied`](#52-erro-de-permissão-adb-permission-denied)
+
+---
+
+Cada item no índice corresponde às seções do conteúdo, permitindo fácil navegação entre as partes principais do documento.
 ## Visualização Detalhada
 
 | Diretório do Projeto | Tela de Home |
